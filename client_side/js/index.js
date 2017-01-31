@@ -31,7 +31,7 @@ function prep_graph(ctx) {
     if(((i+1-300)/6)%5 == 0)
     {
       ctx.lineWidth = 1;
-      ctx.strokeStyle = '#efefef';
+      ctx.strokeStyle = '#dbdbdb';
 
       ctx.beginPath();
       ctx.moveTo(i, 0);

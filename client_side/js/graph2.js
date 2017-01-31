@@ -14,8 +14,12 @@ function init2() {
   drag.status = false;
   drag.circle = 0;
 
+  observer = {};
+  observer.x = 0;
+  observer.y = 0;
 
   ref2();
+  calc_dist();
 }
 function draw2() {
   for (var circle in circles) {
@@ -80,8 +84,8 @@ function ref2() {
   ctx2.clearRect(0, 0, w, h);
   prep_graph(ctx2);
   draw2();
-  calc_dist();
-  ref1();
+  // calc_dist();
+  // ref1();
 }
 function calc_dist(){
   dist = [];
@@ -99,4 +103,38 @@ function calc_dist(){
       table.rows[i].cells[j].innerHTML = dist[i-1][j-1];
     }
   }
+  if ((circles[0].y < observer.y) && (circles[0].x > observer.x))
+  {
+    dist[0][0] = (Math.atan((observer.y-circles[0].y)/(circles[0].x-observer.x)));
+    dist[1][1] = dist[0][0] * 180 / Math.PI;
+  }
+  else if ((circles[0].y < observer.y) && (circles[0].x < observer.x))
+  {
+    dist[0][0] = -(Math.atan((observer.y-circles[0].y)/(observer.x-circles[0].x)))+Math.PI;
+    dist[1][1] = dist[0][0] * 180 / Math.PI;
+  }
+  else if ((circles[0].y > observer.y) && (circles[0].x < observer.x))
+  {
+    dist[0][0] = (Math.atan((circles[0].y-observer.y)/(observer.x - circles[0].x)))+Math.PI;
+    dist[1][1] = dist[0][0] * 180 / Math.PI;
+  }
+  else if ((circles[0].y > observer.y) && (circles[0].x > observer.x))
+  {
+    dist[0][0] = -(Math.atan((circles[0].y-observer.y)/(circles[0].x-observer.x)))+2*Math.PI;
+    dist[1][1] = dist[0][0] * 180 / Math.PI;
+  }
+
+  table.rows[0].cells[0].innerHTML = dist[0][0];
+  table.rows[1].cells[1].innerHTML = dist[1][1];
+  // table.rows[1].cells[1].innerHTML = observer.x;
+  // table.rows[2].cells[2].innerHTML = observer.y;
+  // table.rows[3].cells[3].innerHTML = circles[0].x;
+  // table.rows[4].cells[4].innerHTML = circles[0].y;
+
+  observer.x = circles[0].x;
+  observer.y = circles[0].y;
+
+    observer_array.push(dist)
+
+  setTimeout(calc_dist, 5000);
 }
