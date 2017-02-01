@@ -1,6 +1,7 @@
 pred_circles = [];
 radius = 6;
 
+obs2 = []
 obs1 = []
 obs = [];
 observer_array = [];
@@ -45,118 +46,167 @@ function draw_pred_circle(x,y) {
 function cal_pred_circles() {
 
   // console.log(obs);
-
-  if (obs[0] && observer_array[0])
+  if (observer_array[0])
   {
-    temp_obs = observer_array[0];
-    observer_array.shift();
-
-    if (temp_obs[0][0] != 0 && obs1[0]){
-
-    }
-    else if (temp_obs[0][0] != 0)
+    if(observer_array[0][0][0] == 0)
     {
+      // console.log(observer_array[0]);
+      // console.log("here1");
+      observer_array.shift();
+    }
+    else if(obs2[0])
+    {
+      temp_obs = observer_array[0];
+      observer_array.shift();
+
+      obs = temp_obs;
+      // get the distance travelled by
+      obs1_C_points = triangulate(0,             0,              obs1[1][3],
+                                  0,             obs1[2][1],     obs1[2][3]);
+
+      obs_C_points = triangulate(0,             0,              obs[1][3],
+                                 0,             obs[2][1],      obs[2][3]);
+
+      obs1_O_points = triangulate(0,                  0,                  obs1[1][0],
+                                  0,                  obs1[2][1],         obs1[2][0],
+                                  obs1_C_points[0].x, obs1_C_points[0].y, obs1[3][0]);
+
+      obs_O_points = triangulate(0,                  0,                 obs[1][0],
+                                 0,                  obs[2][1],         obs[2][0],
+                                 obs_C_points[0].x,  obs_C_points[0].y, obs[3][0]);
+
+      O_obs_obs1 = Math.sqrt((obs1_O_points[0].x-obs_O_points[0].x)*(obs1_O_points[0].x-obs_O_points[0].x)+
+                             (obs1_O_points[0].y-obs_O_points[0].y)*(obs1_O_points[0].y-obs_O_points[0].y));
+
 
       pred_circles = [];
 
-      xA=0;
-      yA=0;
-      rA=obs[i][0];
-
-      xB=0;
-      yB=0;
-      rB=temp_obs[i][1];
-
       for (var i = 0; i < obs.length; i++) {
-
         switch (i) {
           case 0:
             draw_pred_circle(0,0);
-            draw_pred_circle(0,0);
-          break;
-
+            xC=50;
+            yC=50;
+            rC=0;
+            break;
+          // case 1:
+          //   draw_pred_circle(0,dist[1][0]);
+          //   xC=50;
+          //   yC=0;
+          //   rC=0;
+          //   break;
           default:
 
-          xA=0;
-          yA=0;
-          rA=obs[i][0];
+            pred_points = triangulate(0,0,obs[i][0],
+                                      -O_obs_obs1*Math.cos(obs[0][0]),-O_obs_obs1*Math.sin(obs[0][0]),obs1[i][0],
+                                      xC,yC,rC);
 
-          xB=0;
-          yB=0;
-          rB=temp_obs[i][1];
+            draw_pred_circle(pred_points[0].x,pred_points[0].y);
 
-          d = Math.sqrt((xB-xA)*(xB-xA)+(yB-yA)*(yB-yA));
-          K = (1/4)*Math.sqrt(((rA+rB)*(rA+rB)-d*d)*(d*d-(rA-rB)*(rA-rB)));
-
-          x1 = (1/2)*(xB+xA) + (1/2)*(xB-xA)*(rA*rA-rB*rB)/(d*d) + 2*(yB-yA)*K/(d*d);
-          y1 = (1/2)*(yB+yA) + (1/2)*(yB-yA)*(rA*rA-rB*rB)/(d*d) + -2*(xB-xA)*K/(d*d);
-
-          x2 = (1/2)*(xB+xA) + (1/2)*(xB-xA)*(rA*rA-rB*rB)/(d*d) - 2*(yB-yA)*K/(d*d);
-          y2 = (1/2)*(yB+yA) + (1/2)*(yB-yA)*(rA*rA-rB*rB)/(d*d) - -2*(xB-xA)*K/(d*d);
-
-          d31 = Math.sqrt((x3-x1)*(x3-x1)+(y3-y1)*(y3-y1));
-          d32 = Math.sqrt((x3-x2)*(x3-x2)+(y3-y2)*(y3-y2));
-
-          if (Math.abs(d31-dist[i][2]) < Math.abs(d32-dist[i][2]))
-          {
-            draw_pred_circle(x1,y1);
-            if (i==2)
+            if (i==1)
             {
-              x3=x1;
-              y3=y1;
+              xC=pred_points[0].x;
+              yC=pred_points[0].y;
             }
-          }
-          else {
-            draw_pred_circle(x2,y2);
-            if (i==2)
-            {
-              x3=x2;
-              y3=y2;
-            }
-          }
 
-          // draw_pred_circle(x1,y1);
-          // draw_pred_circle(x2,y2);
-          break;
-
-
+            break;
         }
       }
-
-
-      obs1 = obs;
-      obs = temp_obs;
+      obs2=obs1;
+      obs1=obs;
     }
-
-    }
-  }
-  else if (!obs[0]) {
-    if(observer_array[0])
+    else if (obs1[0])
     {
-      // console.log("here");
-      obs = observer_array[0];
-      obs1 = observer_array[0];
+      console.log("here");
+      temp_obs = observer_array[0];
       observer_array.shift();
-      cal_pred_circles_first(obs1)
+      if (temp_obs[0][0] != 0 && obs2[0]){
+          console.log("here1");
+      }
+      else if (temp_obs[0][0] != 0)
+      {
+        obs = temp_obs;
+        // get the distance travelled by
+        obs1_C_points = triangulate(0,             0,              obs1[1][3],
+                                    0,             obs1[2][1],     obs1[2][3]);
+
+        obs_C_points = triangulate(0,             0,              obs[1][3],
+                                   0,             obs[2][1],      obs[2][3]);
+
+        obs1_O_points = triangulate(0,                  0,                  obs1[1][0],
+                                    0,                  obs1[2][1],         obs1[2][0],
+                                    obs1_C_points[0].x, obs1_C_points[0].y, obs1[3][0]);
+
+        obs_O_points = triangulate(0,                  0,                 obs[1][0],
+                                   0,                  obs[2][1],         obs[2][0],
+                                   obs_C_points[0].x,  obs_C_points[0].y, obs[3][0]);
+
+        O_obs_obs1 = Math.sqrt((obs1_O_points[0].x-obs_O_points[0].x)*(obs1_O_points[0].x-obs_O_points[0].x)+
+                               (obs1_O_points[0].y-obs_O_points[0].y)*(obs1_O_points[0].y-obs_O_points[0].y));
+
+
+        pred_circles = [];
+
+        for (var i = 0; i < obs.length; i++) {
+          switch (i) {
+            case 0:
+              draw_pred_circle(0,0);
+              xC=50;
+              yC=50;
+              rC=0;
+              break;
+            // case 1:
+            //   draw_pred_circle(0,dist[1][0]);
+            //   xC=50;
+            //   yC=0;
+            //   rC=0;
+            //   break;
+            default:
+
+              pred_points = triangulate(0,0,obs[i][0],
+                                        -O_obs_obs1*Math.cos(obs[0][0]),-O_obs_obs1*Math.sin(obs[0][0]),obs1[i][0],
+                                        xC,yC,rC);
+
+              draw_pred_circle(pred_points[0].x,pred_points[0].y);
+
+              if (i==1)
+              {
+                xC=pred_points[0].x;
+                yC=pred_points[0].y;
+              }
+
+              break;
+          }
+        }
+        obs2=obs1;
+        obs1=obs;
+      }
+    }
+    else if (!obs1[0]) {
+        console.log("here2");
+        obs1 = observer_array[0];
+        observer_array.shift();
+        cal_pred_circles_first(obs1)
     }
   }
 }
 function refresh_btn() {
   observer_array = [];
-  obs = dist;
-  cal_pred_circles_first(obs);
+
+  obs2 = []
+  obs1 = []
+  obs = [];
+
+  calc_dist();
+
+  obs1 = observer_array[0];
+  observer_array.shift();
+  cal_pred_circles_first(obs1)
 }
 function cal_pred_circles_first(dist) {
   pred_circles = [];
   // draw_pred_circle(0,0);
   for (var i = 0; i < dist.length; i++) {
-    // for (var j = 0; j < dist[i].length; j++) {
-    //   if(i<j)
-    //   {
-    //
-    //     draw_pred_circle(0,0+dist[0][1]);
-    //   }
-    // }
 // http://2000clicks.com/mathhelp/GeometryConicSectionCircleIntersection.aspx
     // K = (1/4)sqrt(((rA+rB)2-d2)(d2-(rA-rB)2))
     // d = sqrt((xB-xA)2+(yB-yA)2)
@@ -168,54 +218,52 @@ function cal_pred_circles_first(dist) {
         break;
       case 1:
         draw_pred_circle(0,dist[1][0]);
-        x3=50;
-        y3=0;
+        xC=50;
+        yC=0;
+        rC=0;
         break;
       default:
 
-        xA=0;
-        yA=0;
-        rA=dist[i][0];
-
-        xB=0;
-        yB=dist[1][0];
-        rB=dist[i][1];
-
-        d = Math.sqrt((xB-xA)*(xB-xA)+(yB-yA)*(yB-yA));
-        K = (1/4)*Math.sqrt(((rA+rB)*(rA+rB)-d*d)*(d*d-(rA-rB)*(rA-rB)));
-
-        x1 = (1/2)*(xB+xA) + (1/2)*(xB-xA)*(rA*rA-rB*rB)/(d*d) + 2*(yB-yA)*K/(d*d);
-        y1 = (1/2)*(yB+yA) + (1/2)*(yB-yA)*(rA*rA-rB*rB)/(d*d) + -2*(xB-xA)*K/(d*d);
-
-        x2 = (1/2)*(xB+xA) + (1/2)*(xB-xA)*(rA*rA-rB*rB)/(d*d) - 2*(yB-yA)*K/(d*d);
-        y2 = (1/2)*(yB+yA) + (1/2)*(yB-yA)*(rA*rA-rB*rB)/(d*d) - -2*(xB-xA)*K/(d*d);
-
-        d31 = Math.sqrt((x3-x1)*(x3-x1)+(y3-y1)*(y3-y1));
-        d32 = Math.sqrt((x3-x2)*(x3-x2)+(y3-y2)*(y3-y2));
-
-        if (Math.abs(d31-dist[i][2]) < Math.abs(d32-dist[i][2]))
+        pred_points = triangulate(0,0,dist[i][0],0,dist[1][0],dist[i][1],xC,yC,dist[i][2]);
+        draw_pred_circle(pred_points[0].x,pred_points[0].y);
+        if (i==2)
         {
-          draw_pred_circle(x1,y1);
-          if (i==2)
-          {
-            x3=x1;
-            y3=y1;
-          }
+          xC=pred_points[0].x;
+          yC=pred_points[0].y;
         }
-        else {
-          draw_pred_circle(x2,y2);
-          if (i==2)
-          {
-            x3=x2;
-            y3=y2;
-          }
-        }
-
-        // draw_pred_circle(x1,y1);
-        // draw_pred_circle(x2,y2);
         break;
-
-
     }
   }
+}
+function triangulate(xA,yA,rA,xB,yB,rB,xC,yC,rC) {
+
+      pred = [];
+
+      d = Math.sqrt((xB-xA)*(xB-xA)+(yB-yA)*(yB-yA));
+      K = (1/4)*Math.sqrt(((rA+rB)*(rA+rB)-d*d)*(d*d-(rA-rB)*(rA-rB)));
+
+      x1 = (1/2)*(xB+xA) + (1/2)*(xB-xA)*(rA*rA-rB*rB)/(d*d) + 2*(yB-yA)*K/(d*d);
+      y1 = (1/2)*(yB+yA) + (1/2)*(yB-yA)*(rA*rA-rB*rB)/(d*d) + -2*(xB-xA)*K/(d*d);
+
+      x2 = (1/2)*(xB+xA) + (1/2)*(xB-xA)*(rA*rA-rB*rB)/(d*d) - 2*(yB-yA)*K/(d*d);
+      y2 = (1/2)*(yB+yA) + (1/2)*(yB-yA)*(rA*rA-rB*rB)/(d*d) - -2*(xB-xA)*K/(d*d);
+
+
+      if (xC && yC && rC)
+      {
+        d31 = Math.sqrt((xC-x1)*(xC-x1)+(yC-y1)*(yC-y1));
+        d32 = Math.sqrt((xC-x2)*(xC-x2)+(yC-y2)*(yC-y2));
+        if (Math.abs(d31-rC) < Math.abs(d32-rC))
+        {
+          pred.push({'x':x1,'y':y1});
+        }
+        else {
+          pred.push({'x':x2,'y':y2});
+        }
+      }
+      else {
+        pred.push({'x':x1,'y':y1});
+        pred.push({'x':x2,'y':y2});
+      }
+    return pred;
 }

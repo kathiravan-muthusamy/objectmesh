@@ -19,7 +19,7 @@ function init2() {
   observer.y = 0;
 
   ref2();
-  calc_dist();
+  cal_dist_loop();
 }
 function draw2() {
   for (var circle in circles) {
@@ -135,6 +135,8 @@ function calc_dist(){
   observer.y = circles[0].y;
 
     observer_array.push(dist)
-
-  setTimeout(calc_dist, 5000);
+}
+function cal_dist_loop() {
+  calc_dist();
+  setTimeout(cal_dist_loop, 2000);
 }
