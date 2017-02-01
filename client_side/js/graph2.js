@@ -138,5 +138,5 @@ function calc_dist(){
 }
 function cal_dist_loop() {
   calc_dist();
-  setTimeout(cal_dist_loop, 2000);
+  setTimeout(cal_dist_loop, 500);
 }

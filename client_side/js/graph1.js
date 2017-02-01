@@ -1,4 +1,5 @@
 pred_circles = [];
+debug_circles = [];
 radius = 6;
 
 obs2 = []
@@ -39,9 +40,26 @@ function draw1() {
       ctx1.stroke();
     }
   }
+  for (var circle in debug_circles) {
+    if (debug_circles.hasOwnProperty(circle)) {
+      ctx1.beginPath();
+      ctx1.arc(debug_circles[circle].x, debug_circles[circle].y, radius, 0, 2 * Math.PI, false);
+        ctx1.fillStyle = 'blue';
+        ctx1.font = 'bold 8pt Calibri';
+        ctx1.fillText(circle, debug_circles[circle].x-3, debug_circles[circle].y+20);
+
+      ctx1.fill();
+      ctx1.lineWidth = 5;
+      ctx1.strokeStyle = '#003300';
+      ctx1.stroke();
+    }
+  }
 }
 function draw_pred_circle(x,y) {
   pred_circles.push({'x':x*6+300,'y':-y*6+300});
+}
+function draw_debug_circle(x,y) {
+  debug_circles.push({'x':x*6+300,'y':-y*6+300});
 }
 function cal_pred_circles() {
 
@@ -61,11 +79,18 @@ function cal_pred_circles() {
 
       obs = temp_obs;
       // get the distance travelled by
+      obs2_C_points = triangulate(0,             0,              obs2[1][3],
+                                  0,             obs2[2][1],     obs2[2][3]);
+
       obs1_C_points = triangulate(0,             0,              obs1[1][3],
                                   0,             obs1[2][1],     obs1[2][3]);
 
       obs_C_points = triangulate(0,             0,              obs[1][3],
                                  0,             obs[2][1],      obs[2][3]);
+
+      obs2_O_points = triangulate(0,                  0,                  obs2[1][0],
+                                  0,                  obs2[2][1],         obs2[2][0],
+                                  obs2_C_points[0].x, obs2_C_points[0].y, obs2[3][0]);
 
       obs1_O_points = triangulate(0,                  0,                  obs1[1][0],
                                   0,                  obs1[2][1],         obs1[2][0],
@@ -75,42 +100,27 @@ function cal_pred_circles() {
                                  0,                  obs[2][1],         obs[2][0],
                                  obs_C_points[0].x,  obs_C_points[0].y, obs[3][0]);
 
+      O_obs1_obs2 = Math.sqrt((obs2_O_points[0].x-obs1_O_points[0].x)*(obs2_O_points[0].x-obs1_O_points[0].x)+
+                             (obs2_O_points[0].y-obs1_O_points[0].y)*(obs2_O_points[0].y-obs1_O_points[0].y));
+
       O_obs_obs1 = Math.sqrt((obs1_O_points[0].x-obs_O_points[0].x)*(obs1_O_points[0].x-obs_O_points[0].x)+
                              (obs1_O_points[0].y-obs_O_points[0].y)*(obs1_O_points[0].y-obs_O_points[0].y));
 
+      debug_circles = [];
+      draw_debug_circle(-O_obs_obs1*Math.cos(obs[0][0]),-O_obs_obs1*Math.sin(obs[0][0]));
+      draw_debug_circle(-O_obs_obs1*Math.cos(obs[0][0])-O_obs1_obs2*Math.cos(obs1[0][0]),-O_obs_obs1*Math.sin(obs[0][0])-O_obs1_obs2*Math.sin(obs1[0][0]));
 
       pred_circles = [];
 
-      for (var i = 0; i < obs.length; i++) {
-        switch (i) {
-          case 0:
-            draw_pred_circle(0,0);
-            xC=50;
-            yC=50;
-            rC=0;
-            break;
-          // case 1:
-          //   draw_pred_circle(0,dist[1][0]);
-          //   xC=50;
-          //   yC=0;
-          //   rC=0;
-          //   break;
-          default:
+      draw_pred_circle(0,0);
 
+      for (var i = 1; i < obs.length; i++) {
             pred_points = triangulate(0,0,obs[i][0],
                                       -O_obs_obs1*Math.cos(obs[0][0]),-O_obs_obs1*Math.sin(obs[0][0]),obs1[i][0],
-                                      xC,yC,rC);
+                                      -O_obs_obs1*Math.cos(obs[0][0])-O_obs1_obs2*Math.cos(obs1[0][0]),-O_obs_obs1*Math.sin(obs[0][0])-O_obs1_obs2*Math.sin(obs1[0][0]),obs2[i][0]);
 
             draw_pred_circle(pred_points[0].x,pred_points[0].y);
 
-            if (i==1)
-            {
-              xC=pred_points[0].x;
-              yC=pred_points[0].y;
-            }
-
-            break;
-        }
       }
       obs2=obs1;
       obs1=obs;
@@ -127,6 +137,7 @@ function cal_pred_circles() {
       {
         obs = temp_obs;
         // get the distance travelled by
+        pred_circles = [];
         obs1_C_points = triangulate(0,             0,              obs1[1][3],
                                     0,             obs1[2][1],     obs1[2][3]);
 
@@ -145,7 +156,6 @@ function cal_pred_circles() {
                                (obs1_O_points[0].y-obs_O_points[0].y)*(obs1_O_points[0].y-obs_O_points[0].y));
 
 
-        pred_circles = [];
 
         for (var i = 0; i < obs.length; i++) {
           switch (i) {
