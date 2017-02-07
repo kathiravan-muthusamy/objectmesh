@@ -1,0 +1,27 @@
+<html>
+<head>
+<script type="text/javascript" src="../js/triangulate.js"></script>
+<script type="text/javascript" src="../js/triangulate_graph.js"></script>
+<style>
+  th,td{
+    border: 1px solid grey;
+  }
+</style>
+</head>
+   <body onload="init()">
+       <canvas id="can1" width="600" height="600" style="border:2px solid;"></canvas>
+       <br>
+       <input type="TEXT" id="x1" name="x1" value="0">
+       <input type="TEXT" id="y1" name="y1" value="0">
+       <input type="TEXT" id="r1" name="r1" value="15">
+       <br>
+       <input type="TEXT" id="x2" name="x2" value="20">
+       <input type="TEXT" id="y2" name="y2" value="0">
+       <input type="TEXT" id="r2" name="r2" value="15">
+       <br>
+       <input type="TEXT" id="x3" name="x3" value="10">
+       <input type="TEXT" id="y3" name="y3" value="-20">
+       <input type="TEXT" id="r3" name="r3" value="15">
+      <button type="button" name="button" onclick="ref()">Refresh</button>
+   </body>
+   </html>
