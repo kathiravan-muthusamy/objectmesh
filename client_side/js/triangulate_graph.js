@@ -23,7 +23,7 @@ function draw() {
       ctx1.beginPath();
       ctx1.arc(circles[circle].x, circles[circle].y, radius, 0, 2 * Math.PI, false);
       if(circle==0){
-        ctx1.fillStyle = 'cyan';
+        ctx1.fillStyle = 'green';
       }
       else if(circle==1){
         ctx1.fillStyle = 'blue';
@@ -32,7 +32,7 @@ function draw() {
         ctx1.fillStyle = 'red';
       }
       else {
-        ctx1.fillStyle = 'green';
+        ctx1.fillStyle = 'black';
         ctx1.font = 'bold 8pt Calibri';
         ctx1.fillText(circle, circles[circle].x-3, circles[circle].y+20);
       }
@@ -68,10 +68,13 @@ function ref() {
 
   ctx1.beginPath();
   ctx1.arc(x1*6+300, -y1*6+300, r1*6, 0, 2 * Math.PI, false);
+  // ctx1.strokeStyle = 'yellow';
+  // ctx1.stroke();
+  // ctx1.arc(x1*6+300, -y1*6+300, r1*6-10, 0, 2 * Math.PI, false);
   // ctx1.fillStyle = 'cyan';
   // ctx1.fill();
   ctx1.lineWidth = 1;
-  ctx1.strokeStyle = 'cyan';
+  ctx1.strokeStyle = 'green';
   ctx1.stroke();
 
   ctx1.beginPath();
