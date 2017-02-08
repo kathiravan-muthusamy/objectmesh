@@ -48,8 +48,8 @@ function triangulate(xA,yA,rA,xB,yB,rB,xC,yC,rC,count) {
         y2  = (1/2)*(yB+yA) + (1/2)*(yB-yA)*(rA*rA-rB*rB)/(d*d) - -2*(xB-xA)*K/(d*d);
 
 
-        if (xC && yC && rC)
-        {
+        // if (xC && yC && rC)
+        // {
           d31 = Math.sqrt((xC-x1)*(xC-x1)+(yC-y1)*(yC-y1));
           d32 = Math.sqrt((xC-x2)*(xC-x2)+(yC-y2)*(yC-y2));
           if (Math.abs(d31-rC) < Math.abs(d32-rC))
@@ -59,11 +59,11 @@ function triangulate(xA,yA,rA,xB,yB,rB,xC,yC,rC,count) {
           else {
             pred={'x':x2,'y':y2};
           }
-        }
-        else {
-          pred={'x':x1,'y':y1};
-          pred={'x':x2,'y':y2};
-        }
+        // }
+        // else {
+        //   pred={'x':x1,'y':y1};
+        //   pred={'x':x2,'y':y2};
+        // }
       }
     return pred;
 }

@@ -22,8 +22,14 @@ function draw() {
     if (circles.hasOwnProperty(circle)) {
       ctx1.beginPath();
       ctx1.arc(circles[circle].x, circles[circle].y, radius, 0, 2 * Math.PI, false);
-      if(circle<3){
-        ctx1.fillStyle = 'yellow';
+      if(circle==0){
+        ctx1.fillStyle = 'cyan';
+      }
+      else if(circle==1){
+        ctx1.fillStyle = 'blue';
+      }
+      else if(circle==2){
+        ctx1.fillStyle = 'red';
       }
       else {
         ctx1.fillStyle = 'green';
@@ -62,20 +68,22 @@ function ref() {
 
   ctx1.beginPath();
   ctx1.arc(x1*6+300, -y1*6+300, r1*6, 0, 2 * Math.PI, false);
+  // ctx1.fillStyle = 'cyan';
+  // ctx1.fill();
   ctx1.lineWidth = 1;
-  ctx1.strokeStyle = '#003300';
+  ctx1.strokeStyle = 'cyan';
   ctx1.stroke();
 
   ctx1.beginPath();
   ctx1.arc(x2*6+300, -y2*6+300, r2*6, 0, 2 * Math.PI, false);
   ctx1.lineWidth = 1;
-  ctx1.strokeStyle = '#003300';
+  ctx1.strokeStyle = 'blue';
   ctx1.stroke();
 
   ctx1.beginPath();
   ctx1.arc(x3*6+300, -y3*6+300, r3*6, 0, 2 * Math.PI, false);
   ctx1.lineWidth = 1;
-  ctx1.strokeStyle = '#003300';
+  ctx1.strokeStyle = 'red';
   ctx1.stroke();
 
   pred_circle = triangulate(x1,y1,r1,x2,y2,r2,x3,y3,r3);
