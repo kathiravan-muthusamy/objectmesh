@@ -1,0 +1,206 @@
+<html>
+<head>
+<script type="text/javascript" src="../js/index.js"></script>
+<script type="text/javascript" src="../js/graph1.js"></script>
+<script type="text/javascript" src="../js/graph2.js"></script>
+<style>
+  th,td{
+    border: 1px solid grey;
+  }
+</style>
+</head>
+   <body onload="init()">
+       <canvas id="can1" width="600" height="600" style="border:2px solid;"></canvas>
+       <canvas id="can2" width="600" height="600" style="border:2px solid;"></canvas>
+       <!-- <div style="position:absolute;top:15%;left:45%;width:10px;height:10px;background:green;" id="green" onclick="color(this)"></div> -->
+       <!-- <div style="position:absolute;top:12%;left:43%;">Choose Color</div>
+       <div style="position:absolute;top:15%;left:46%;width:10px;height:10px;background:blue;" id="blue" onclick="color(this)"></div>
+       <div style="position:absolute;top:15%;left:47%;width:10px;height:10px;background:red;" id="red" onclick="color(this)"></div>
+       <div style="position:absolute;top:17%;left:45%;width:10px;height:10px;background:yellow;" id="yellow" onclick="color(this)"></div>
+       <div style="position:absolute;top:17%;left:46%;width:10px;height:10px;background:orange;" id="orange" onclick="color(this)"></div>
+       <div style="position:absolute;top:17%;left:47%;width:10px;height:10px;background:black;" id="black" onclick="color(this)"></div>
+       <div style="position:absolute;top:20%;left:43%;">Eraser</div>
+       <div style="position:absolute;top:22%;left:45%;width:15px;height:15px;background:white;border:2px solid;" id="white" onclick="color(this)"></div>
+       <img id="canvasimg" style="position:absolute;top:10%;left:52%;" style="display:none;">
+       <input type="button" value="save" id="btn" size="30" onclick="save()" style="position:absolute;top:55%;left:10%;">
+       <input type="button" value="clear" id="clr" size="23" onclick="erase()" style="position:absolute;top:55%;left:15%;"> -->
+       <br>
+       <button type="button" name="button" onclick="refresh_btn()">Refresh</button>
+       No of objects <input type="text" name="" value="3"></input>
+       <br>
+       Distanse Matrix<br>
+       <table id="table">
+         <tbody>
+           <tr>
+             <th></th>
+             <th>device</th>
+             <th>obj1</th>
+             <th>obj2</th>
+             <th>obj3</th>
+             <th>obj4</th>
+             <th>obj5</th>
+             <th>obj6</th>
+             <th>obj7</th>
+             <th>obj8</th>
+             <th>obj9</th>
+             <th>obj10</th>
+           </tr>
+           <tr>
+             <th>device</th>
+             <td></td>
+             <td></td>
+             <td></td>
+             <td></td>
+             <td></td>
+             <td></td>
+             <td></td>
+             <td></td>
+             <td></td>
+             <td></td>
+             <td></td>
+           </tr>
+           <tr>
+             <th>obj1</th>
+             <td></td>
+             <td></td>
+             <td></td>
+             <td></td>
+             <td></td>
+             <td></td>
+             <td></td>
+             <td></td>
+             <td></td>
+             <td></td>
+             <td></td>
+           </tr>
+           <tr>
+             <th>obj2</th>
+             <td></td>
+             <td></td>
+             <td></td>
+             <td></td>
+             <td></td>
+             <td></td>
+             <td></td>
+             <td></td>
+             <td></td>
+             <td></td>
+             <td></td>
+           </tr>
+           <tr>
+             <th>obj3</th>
+             <td></td>
+             <td></td>
+             <td></td>
+             <td></td>
+             <td></td>
+             <td></td>
+             <td></td>
+             <td></td>
+             <td></td>
+             <td></td>
+             <td></td>
+           </tr>
+           <tr>
+             <th>obj4</th>
+             <td></td>
+             <td></td>
+             <td></td>
+             <td></td>
+             <td></td>
+             <td></td>
+             <td></td>
+             <td></td>
+             <td></td>
+             <td></td>
+             <td></td>
+           </tr>
+           <tr>
+             <th>obj5</th>
+             <td></td>
+             <td></td>
+             <td></td>
+             <td></td>
+             <td></td>
+             <td></td>
+             <td></td>
+             <td></td>
+             <td></td>
+             <td></td>
+             <td></td>
+           </tr>
+           <tr>
+             <th>obj6</th>
+             <td></td>
+             <td></td>
+             <td></td>
+             <td></td>
+             <td></td>
+             <td></td>
+             <td></td>
+             <td></td>
+             <td></td>
+             <td></td>
+             <td></td>
+           </tr>
+           <tr>
+             <th>obj7</th>
+             <td></td>
+             <td></td>
+             <td></td>
+             <td></td>
+             <td></td>
+             <td></td>
+             <td></td>
+             <td></td>
+             <td></td>
+             <td></td>
+             <td></td>
+           </tr>
+           <tr>
+             <th>obj8</th>
+             <td></td>
+             <td></td>
+             <td></td>
+             <td></td>
+             <td></td>
+             <td></td>
+             <td></td>
+             <td></td>
+             <td></td>
+             <td></td>
+             <td></td>
+           </tr>
+           <tr>
+             <th>obj9</th>
+             <td></td>
+             <td></td>
+             <td></td>
+             <td></td>
+             <td></td>
+             <td></td>
+             <td></td>
+             <td></td>
+             <td></td>
+             <td></td>
+             <td></td>
+           </tr>
+           <tr>
+             <th>obj10</th>
+             <td></td>
+             <td></td>
+             <td></td>
+             <td></td>
+             <td></td>
+             <td></td>
+             <td></td>
+             <td></td>
+             <td></td>
+             <td></td>
+             <td></td>
+           </tr>
+         </tbody>
+       </table>
+
+   </body>
+   </html>
