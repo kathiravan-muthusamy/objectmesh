@@ -62,7 +62,8 @@
                 ng-repeat="C in coord">
              <B><center>Distance for coordinate {{$index+1}}</center></B>
              <div layout="row" style="padding:4px" layout-align="space-around center">
-               <span style="width:40px"></span>
+               <span style="width:40px"><md-checkbox md-primary ng-model="C.update" name="check" aria-label="check">
+               </md-checkbox></span>
                <span style="width:70px">EC01</span>
                <span style="width:70px">EC02</span>
                <span style="width:70px">EC03</span>

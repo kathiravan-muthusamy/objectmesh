@@ -14,10 +14,15 @@ angular.module('objectmesh').controller('main_controller',
     $scope.ref_dist =function() {
       api_read=api_dist_read.query();
       api_read.$promise.then(function() {
-        // console.log(api_read);
-        $scope.coord['C1'].dist['EC03'] = api_read['EC03'];
-        $scope.coord['C2'].dist['EC03'] = api_read['EC03'];
-        $scope.coord['C3'].dist['EC03'] = api_read['EC03'];
+        if(!$scope.coord['C1'].update){
+          $scope.coord['C1'].dist['EC03'] = api_read['EC03'];
+        }
+        if(!$scope.coord['C2'].update){
+          $scope.coord['C2'].dist['EC03'] = api_read['EC03'];
+        }
+        if(!$scope.coord['C3'].update){
+          $scope.coord['C3'].dist['EC03'] = api_read['EC03'];
+        }
         setTimeout($scope.ref_dist, 100);
       });
     };
