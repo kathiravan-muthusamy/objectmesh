@@ -1,206 +1,93 @@
 <html>
 <head>
-<script type="text/javascript" src="../js/index.js"></script>
-<script type="text/javascript" src="../js/graph1.js"></script>
-<script type="text/javascript" src="../js/graph2.js"></script>
-<style>
-  th,td{
-    border: 1px solid grey;
-  }
-</style>
-</head>
-   <body onload="init()">
-       <canvas id="can1" width="600" height="600" style="border:2px solid;"></canvas>
-       <canvas id="can2" width="600" height="600" style="border:2px solid;"></canvas>
-       <!-- <div style="position:absolute;top:15%;left:45%;width:10px;height:10px;background:green;" id="green" onclick="color(this)"></div> -->
-       <!-- <div style="position:absolute;top:12%;left:43%;">Choose Color</div>
-       <div style="position:absolute;top:15%;left:46%;width:10px;height:10px;background:blue;" id="blue" onclick="color(this)"></div>
-       <div style="position:absolute;top:15%;left:47%;width:10px;height:10px;background:red;" id="red" onclick="color(this)"></div>
-       <div style="position:absolute;top:17%;left:45%;width:10px;height:10px;background:yellow;" id="yellow" onclick="color(this)"></div>
-       <div style="position:absolute;top:17%;left:46%;width:10px;height:10px;background:orange;" id="orange" onclick="color(this)"></div>
-       <div style="position:absolute;top:17%;left:47%;width:10px;height:10px;background:black;" id="black" onclick="color(this)"></div>
-       <div style="position:absolute;top:20%;left:43%;">Eraser</div>
-       <div style="position:absolute;top:22%;left:45%;width:15px;height:15px;background:white;border:2px solid;" id="white" onclick="color(this)"></div>
-       <img id="canvasimg" style="position:absolute;top:10%;left:52%;" style="display:none;">
-       <input type="button" value="save" id="btn" size="30" onclick="save()" style="position:absolute;top:55%;left:10%;">
-       <input type="button" value="clear" id="clr" size="23" onclick="erase()" style="position:absolute;top:55%;left:15%;"> -->
-       <br>
-       <button type="button" name="button" onclick="refresh_btn()">Refresh</button>
-       No of objects <input type="text" name="" value="3"></input>
-       <br>
-       Distanse Matrix<br>
-       <table id="table">
-         <tbody>
-           <tr>
-             <th></th>
-             <th>device</th>
-             <th>obj1</th>
-             <th>obj2</th>
-             <th>obj3</th>
-             <th>obj4</th>
-             <th>obj5</th>
-             <th>obj6</th>
-             <th>obj7</th>
-             <th>obj8</th>
-             <th>obj9</th>
-             <th>obj10</th>
-           </tr>
-           <tr>
-             <th>device</th>
-             <td></td>
-             <td></td>
-             <td></td>
-             <td></td>
-             <td></td>
-             <td></td>
-             <td></td>
-             <td></td>
-             <td></td>
-             <td></td>
-             <td></td>
-           </tr>
-           <tr>
-             <th>obj1</th>
-             <td></td>
-             <td></td>
-             <td></td>
-             <td></td>
-             <td></td>
-             <td></td>
-             <td></td>
-             <td></td>
-             <td></td>
-             <td></td>
-             <td></td>
-           </tr>
-           <tr>
-             <th>obj2</th>
-             <td></td>
-             <td></td>
-             <td></td>
-             <td></td>
-             <td></td>
-             <td></td>
-             <td></td>
-             <td></td>
-             <td></td>
-             <td></td>
-             <td></td>
-           </tr>
-           <tr>
-             <th>obj3</th>
-             <td></td>
-             <td></td>
-             <td></td>
-             <td></td>
-             <td></td>
-             <td></td>
-             <td></td>
-             <td></td>
-             <td></td>
-             <td></td>
-             <td></td>
-           </tr>
-           <tr>
-             <th>obj4</th>
-             <td></td>
-             <td></td>
-             <td></td>
-             <td></td>
-             <td></td>
-             <td></td>
-             <td></td>
-             <td></td>
-             <td></td>
-             <td></td>
-             <td></td>
-           </tr>
-           <tr>
-             <th>obj5</th>
-             <td></td>
-             <td></td>
-             <td></td>
-             <td></td>
-             <td></td>
-             <td></td>
-             <td></td>
-             <td></td>
-             <td></td>
-             <td></td>
-             <td></td>
-           </tr>
-           <tr>
-             <th>obj6</th>
-             <td></td>
-             <td></td>
-             <td></td>
-             <td></td>
-             <td></td>
-             <td></td>
-             <td></td>
-             <td></td>
-             <td></td>
-             <td></td>
-             <td></td>
-           </tr>
-           <tr>
-             <th>obj7</th>
-             <td></td>
-             <td></td>
-             <td></td>
-             <td></td>
-             <td></td>
-             <td></td>
-             <td></td>
-             <td></td>
-             <td></td>
-             <td></td>
-             <td></td>
-           </tr>
-           <tr>
-             <th>obj8</th>
-             <td></td>
-             <td></td>
-             <td></td>
-             <td></td>
-             <td></td>
-             <td></td>
-             <td></td>
-             <td></td>
-             <td></td>
-             <td></td>
-             <td></td>
-           </tr>
-           <tr>
-             <th>obj9</th>
-             <td></td>
-             <td></td>
-             <td></td>
-             <td></td>
-             <td></td>
-             <td></td>
-             <td></td>
-             <td></td>
-             <td></td>
-             <td></td>
-             <td></td>
-           </tr>
-           <tr>
-             <th>obj10</th>
-             <td></td>
-             <td></td>
-             <td></td>
-             <td></td>
-             <td></td>
-             <td></td>
-             <td></td>
-             <td></td>
-             <td></td>
-             <td></td>
-             <td></td>
-           </tr>
-         </tbody>
-       </table>
 
+  <link rel="stylesheet" media="screen" type="text/css"
+      href="/angular-material/angular-material.min.css">
+  <link rel="stylesheet" media="screen" type="text/css"
+      href="../css/objectmesh.css">
+
+  <script src="/angular/angular.min.js"></script>
+  <script src="/angular-resource/angular-resource.min.js">
+      </script>
+  <!-- <script src="/angular-route/angular-route.min.js">
+      </script> -->
+  <script src="/angular-animate/angular-animate.min.js">
+      </script>
+  <script src="/angular-aria/angular-aria.min.js"></script>
+  <script src="/angular-material/angular-material.min.js">
+      </script>
+
+  <script src="../js/triangulate.js"></script>
+  <script src="../js/srv_rest_api.js"></script>
+  <script src="../js/app_objectmesh.js"></script>
+  <script src="../js/ctr_main_controller.js"></script>
+<!-- <script type="text/javascript" src="../js/index.js"></script>
+<script type="text/javascript" src="../js/graph1.js"></script>
+<script type="text/javascript" src="../js/graph2.js"></script> -->
+</head>
+   <body ng-app="objectmesh" ng-controller="main_controller" layout="column">
+     <div class="header" layout="row" layout-align="center center">
+       <div style="color:white">Object Mesh</div>
+     </div>
+     <div class="content" layout="row" flex>
+       <div layout="column" flex>
+        <canvas id="can1" style="border:2px solid;" flex ng-init="init()"></canvas>
+        <md-slider ng-model="centre.x" min="-{{w/2}}" max="{{w/2}}"
+            aria-label="x" id="x" class="md-primary">
+        </md-slider>
+       </div>
+       <div layout="row">
+         <div layout="column">
+           <md-slider ng-model="centre.y" min="{{-h/2}}" max="{{h/2}}" aria-label="y"
+              id="y-slider" class="md-primary" md-vertical md-range flex>
+            </md-slider>
+            <div style="height:48px"></div>
+         </div>
+         <div layout="column">
+           <md-slider ng-model="zoom" min="0.5" max="10" step="0.1" aria-label="zoom"
+              id="zoom" class="md-primary" md-vertical md-range flex>
+            </md-slider>
+            <div style="height:48px"></div>
+         </div>
+         <div layout="column" class="sidebar">
+           <div layout="column" class="cards" layout-align="center">
+             <B><center>COORDINATES</center></B>
+             <div layout="row" style="padding:4px" layout-align="space-around center"
+                  ng-repeat="C in coord">
+               X{{$index+1}}: <input type="text" style="width:70px" ng-model="C.X"></input>
+               Y{{$index+1}}: <input type="text" style="width:70px" ng-model="C.Y"></input>
+             </div>
+           </div>
+           <div layout="column" class="cards" layout-align="center"
+                ng-repeat="C in coord">
+             <B><center>Distance for coordinate {{$index+1}}</center></B>
+             <div layout="row" style="padding:4px" layout-align="space-around center">
+               <span style="width:40px">{{w}}</span>
+               <span style="width:70px">EC01</span>
+               <span style="width:70px">EC02</span>
+               <span style="width:70px">EC03</span>
+             </div>
+             <div layout="row" style="padding:4px" layout-align="space-around center">
+               <span style="width:40px">EC01</span>
+               <input type="text" style="width:70px" ng-model="C.dist['EC01']['EC01']"></input>
+               <input type="text" style="width:70px" ng-model="C.dist['EC01']['EC02']"></input>
+               <input type="text" style="width:70px" ng-model="C.dist['EC01']['EC03']"></input>
+             </div>
+             <div layout="row" style="padding:4px" layout-align="space-around center">
+               <span style="width:40px">EC02</span>
+               <input type="text" style="width:70px" ng-model="C.dist['EC02']['EC01']"></input>
+               <input type="text" style="width:70px" ng-model="C.dist['EC02']['EC02']"></input>
+               <input type="text" style="width:70px" ng-model="C.dist['EC02']['EC03']"></input>
+             </div>
+             <div layout="row" style="padding:4px" layout-align="space-around center">
+               <span style="width:40px">EC03</span>
+               <input type="text" style="width:70px" ng-model="C.dist['EC03']['EC01']"></input>
+               <input type="text" style="width:70px" ng-model="C.dist['EC03']['EC02']"></input>
+               <input type="text" style="width:70px" ng-model="C.dist['EC03']['EC03']"></input>
+             </div>
+           </div>
+         </div>
+       </div>
+     </div>
    </body>
    </html>

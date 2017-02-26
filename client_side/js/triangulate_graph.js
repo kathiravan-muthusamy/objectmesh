@@ -68,11 +68,6 @@ function ref() {
 
   ctx1.beginPath();
   ctx1.arc(x1*6+300, -y1*6+300, r1*6, 0, 2 * Math.PI, false);
-  // ctx1.strokeStyle = 'yellow';
-  // ctx1.stroke();
-  // ctx1.arc(x1*6+300, -y1*6+300, r1*6-10, 0, 2 * Math.PI, false);
-  // ctx1.fillStyle = 'cyan';
-  // ctx1.fill();
   ctx1.lineWidth = 1;
   ctx1.strokeStyle = 'green';
   ctx1.stroke();
