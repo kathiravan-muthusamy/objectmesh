@@ -34,7 +34,6 @@ angular.module('objectmesh').controller('main_controller',
       graph_init();
       $scope.w=w;
       $scope.h=h;
-      console.log($scope.coord);
       draw_circle($scope.coord['C1'].X,$scope.coord['C1'].Y);
       draw_circle($scope.coord['C2'].X,$scope.coord['C2'].Y);
       draw_circle($scope.coord['C3'].X,$scope.coord['C3'].Y);
