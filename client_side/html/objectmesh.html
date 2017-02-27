@@ -54,8 +54,10 @@
              <B><center>COORDINATES</center></B>
              <div layout="row" style="padding:4px" layout-align="space-around center"
                   ng-repeat="C in coord">
-               X{{$index+1}}: <input type="text" style="width:70px" ng-model="C.X"></input>
-               Y{{$index+1}}: <input type="text" style="width:70px" ng-model="C.Y"></input>
+               X{{$index+1}}: <input style="width:70px" ng-model="C.X"
+                              type="number" step="0.01"></input>
+               Y{{$index+1}}: <input style="width:70px" ng-model="C.Y"
+                              type="number" step="0.01"></input>
              </div>
            </div>
            <div layout="column" class="cards" layout-align="center"
@@ -70,21 +72,30 @@
              </div>
              <div layout="row" style="padding:4px" layout-align="space-around center">
                <span style="width:40px">EC01</span>
-               <input type="text" style="width:70px" ng-model="C.dist['EC01']['EC01']"></input>
-               <input type="text" style="width:70px" ng-model="C.dist['EC01']['EC02']"></input>
-               <input type="text" style="width:70px" ng-model="C.dist['EC01']['EC03']"></input>
+               <input style="width:70px" ng-model="C.dist['EC01']['EC01']"
+               type="number" step="0.01"></input>
+               <input style="width:70px" ng-model="C.dist['EC01']['EC02']"
+               type="number" step="0.01"></input>
+               <input style="width:70px" ng-model="C.dist['EC01']['EC03']"
+               type="number" step="0.01"></input>
              </div>
              <div layout="row" style="padding:4px" layout-align="space-around center">
                <span style="width:40px">EC02</span>
-               <input type="text" style="width:70px" ng-model="C.dist['EC02']['EC01']"></input>
-               <input type="text" style="width:70px" ng-model="C.dist['EC02']['EC02']"></input>
-               <input type="text" style="width:70px" ng-model="C.dist['EC02']['EC03']"></input>
+               <input style="width:70px" ng-model="C.dist['EC02']['EC01']"
+               type="number" step="0.01"></input>
+               <input style="width:70px" ng-model="C.dist['EC02']['EC02']"
+               type="number" step="0.01"></input>
+               <input style="width:70px" ng-model="C.dist['EC02']['EC03']"
+               type="number" step="0.01"></input>
              </div>
              <div layout="row" style="padding:4px" layout-align="space-around center">
                <span style="width:40px">EC03</span>
-               <input type="text" style="width:70px" ng-model="C.dist['EC03']['EC01']"></input>
-               <input type="text" style="width:70px" ng-model="C.dist['EC03']['EC02']"></input>
-               <input type="text" style="width:70px" ng-model="C.dist['EC03']['EC03']"></input>
+               <input style="width:70px" ng-model="C.dist['EC03']['EC01']"
+               type="number" step="0.01"></input>
+               <input style="width:70px" ng-model="C.dist['EC03']['EC02']"
+               type="number" step="0.01"></input>
+               <input style="width:70px" ng-model="C.dist['EC03']['EC03']"
+               type="number" step="0.01"></input>
              </div>
            </div>
          </div>
