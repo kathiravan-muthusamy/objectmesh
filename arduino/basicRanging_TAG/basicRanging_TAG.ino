@@ -115,7 +115,7 @@ void WIFI_transmit() {
       if(id != 0){
         result = result + ",";
       }
-      result = result + "\'" + uid + "':" + String(DW1000Ranging.getDistantDeviceById(id)->getRange());
+      result = result + "\"" + uid + "\":" + String(DW1000Ranging.getDistantDeviceById(id)->getRange());
       
   } 
   result = result + "}";
@@ -123,7 +123,7 @@ void WIFI_transmit() {
   uid = String(addr,HEX);
   uid.toUpperCase();
   
-  String httpurl="http://ec2-52-37-49-247.us-west-2.compute.amazonaws.com:8080/write?uid=" + uid + "&result=" + result;
+  String httpurl="http://162.222.176.252:1234/write?uid=" + uid + "&result=" + result;
   Serial.println(httpurl);
 
     if((WiFiMulti.run() == WL_CONNECTED)) {
