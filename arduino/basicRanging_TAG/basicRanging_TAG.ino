@@ -93,7 +93,7 @@ void WIFI_setup() {
         delay(1000);
     }
 
-    WiFiMulti.addAP("Androidpixel", "test1123");
+    WiFiMulti.addAP("Shyam wifi 2", "Shyam289");
 
     // allow reuse (if server supports it)
     http.setReuse(true);
@@ -123,7 +123,7 @@ void WIFI_transmit() {
   uid = String(addr,HEX);
   uid.toUpperCase();
   
-  String httpurl="http://162.222.176.252:1234/write?uid=" + uid + "&result=" + result;
+  String httpurl="http://192.168.43.79/write?uid=" + uid + "&result=" + result;
   Serial.println(httpurl);
 
     if((WiFiMulti.run() == WL_CONNECTED)) {
